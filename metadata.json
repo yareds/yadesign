@@ -1,0 +1,6 @@
+{
+  "name": "YA Design - Software Studio",
+  "description": "Portfolio website for YA Design, a software and digital solutions studio based in Hawassa, Ethiopia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

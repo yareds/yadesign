@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* 1. Custom Font-Face Declarations (Make sure files exist in your public/fonts folder) */
+@font-face {
+  font-family: 'Runethia';
+  src: url('/fonts/Runethia.woff2') format('woff2'),
+       url('/fonts/Runethia.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Symphonie';
+  src: url('/fonts/Symphonie.woff2') format('woff2'),
+       url('/fonts/Symphonie.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  
+  /* 2. Added Native Calligraphy Variable mapping */
+  --font-calligraphy: 'Runethia', 'Symphonie', 'Alex Brush', 'Great Vibes', 'Monsieur La Doulaise', 'Sacramento', cursive;
+
+  /* Ink palette (Dark Obsidian Midnight) */
+  --color-ink: #1B2438;
+  --color-ink-soft: #121826;
+  --color-ink-softer: #232D42;
+  --color-ink-line: #2A364F;
+  --color-ink-muted: #94A3B8;
+
+  /* Parchment palette (Light Pristine Ice) */
+  --color-parchment: #F8FAFC;
+  --color-parchment-soft: #FFFFFF;
+  --color-parchment-line: #E2E8F0;
+  --color-parchment-muted: #64748B;
+
+  /* Accents */
+  --color-brass: #F59E0B;
+  --color-brass-bright: #FBBF24;
+  --color-teal-accent: #0891B2;
+  --color-teal-bright: #06B6D4;
+  --color-rust: #6366F1;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-ink);
+    color: var(--color-parchment);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-mono, .label-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Repeating diamond/weave pattern divider strip */
+.divider-pattern-light {
+  height: 16px;
+  width: 100%;
+  background-color: #F8FAFC;
+  background-image: repeating-linear-gradient(45deg, #F59E0B 0, #F59E0B 2px, transparent 0, transparent 50%), repeating-linear-gradient(-45deg, #F59E0B 0, #F59E0B 2px, transparent 0, transparent 50%);
+  background-size: 24px 24px;
+  background-position: 0 0;
+  opacity: 0.25;
+}
+
+.divider-pattern-dark {
+  height: 16px;
+  width: 100%;
+  background-color: #1B2438;
+  background-image: repeating-linear-gradient(45deg, #F8FAFC 0, #F8FAFC 2px, transparent 0, transparent 50%), repeating-linear-gradient(-45deg, #F8FAFC 0, #F8FAFC 2px, transparent 0, transparent 50%);
+  background-size: 24px 24px;
+  background-position: 0 0;
+  opacity: 0.18;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1B2438;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A364F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F59E0B;
+}
+
+/* Keyframe for ticker marquee */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
