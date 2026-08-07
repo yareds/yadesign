@@ -40,11 +40,6 @@ export interface Testimonial {
   role: string;
   location: string;
   projectRelation: string;
-  name?: string;
-  rating?: number; // 1 - 5 stars
-  date?: string;
-  isVisitor?: boolean;
-  helpfulCount?: number;
 }
 
 export interface TechCategory {

@@ -58,15 +58,15 @@ export default function App() {
 
         <SectionDivider mode="light" />
 
-        {/* 7. Contact */}
-        <ContactSection />
-
-        <SectionDivider mode="dark" />
-
-        {/* 8. Testimonials & Reviews */}
+        {/* 7. Testimonials */}
         <TestimonialsSection />
 
         <SectionDivider mode="dark" />
+
+        {/* 8. Contact */}
+        <ContactSection />
+
+        <SectionDivider mode="light" />
       </main>
 
       {/* 9. Footer (Dark #14100D) */}

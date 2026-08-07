@@ -121,38 +121,23 @@ export const TECH_STACK: TechCategory[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
-    name: 'Henok Tadesse',
     quote: 'YA Design built our property management system from the ground up. We replaced messy spreadsheets with a real-time dashboard that our field staff and property owners love using every day.',
     role: 'Property Portfolio Director',
     location: 'Addis Ababa & Global',
-    projectRelation: 'GETCH Property Manager',
-    rating: 5,
-    date: '2026-07-15',
-    isVisitor: false,
-    helpfulCount: 14
+    projectRelation: 'GETCH Property Manager'
   },
   {
     id: 't2',
-    name: 'Sara Kifle',
     quote: 'The BUNA Ethiopia coffee experience brought our brand into the modern digital age without losing the cultural soul of Ethiopian coffee craftsmanship.',
     role: 'Specialty Coffee Brand Founder',
     location: 'Ethiopia & Global',
-    projectRelation: 'BUNA Ethiopia Platform',
-    rating: 5,
-    date: '2026-06-28',
-    isVisitor: false,
-    helpfulCount: 19
+    projectRelation: 'BUNA Ethiopia Platform'
   },
   {
     id: 't3',
-    name: 'Dawit Solomon',
     quote: 'Our fashion marketplace needed localized checkout options like Telegram deep links alongside multi-currency display. YA Design delivered production code in weeks.',
     role: 'E-commerce Operations Lead',
     location: 'Ethiopia',
-    projectRelation: 'EthioShein Marketplace',
-    rating: 5,
-    date: '2026-05-12',
-    isVisitor: false,
-    helpfulCount: 11
+    projectRelation: 'EthioShein Marketplace'
   }
 ];
