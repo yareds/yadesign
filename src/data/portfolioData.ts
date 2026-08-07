@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ethio-phone-auction',
-    name: 'EthioPhone Auction',
+    name: 'ETPhone Auction',
     category: 'Marketplace',
     year: '2025',
     status: 'Live',

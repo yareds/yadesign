@@ -53,20 +53,20 @@ export default function App() {
 
         <SectionDivider mode="dark" />
 
-        {/* 6. Tech Stack (Light #EDE6D6) */}
+        {/* 6. Tech Stack */}
         <TechStackSection />
 
         <SectionDivider mode="light" />
 
-        {/* 7. Testimonials (Dark #14100D) */}
-        <TestimonialsSection />
+        {/* 7. Contact */}
+        <ContactSection />
 
         <SectionDivider mode="dark" />
 
-        {/* 8. Contact (Light #EDE6D6) */}
-        <ContactSection />
+        {/* 8. Testimonials & Reviews */}
+        <TestimonialsSection />
 
-        <SectionDivider mode="light" />
+        <SectionDivider mode="dark" />
       </main>
 
       {/* 9. Footer (Dark #14100D) */}

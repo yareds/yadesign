@@ -24,6 +24,7 @@ export const Navbar: React.FC = () => {
     { name: 'Process', href: '#process' },
     { name: 'Stack', href: '#stack' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Reviews', href: '#testimonials' },
   ];
 
   const handleNavClick = (href: string) => {
