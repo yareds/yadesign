@@ -1,6 +1,6 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/siteData';
-import { Quote, Info, ShieldCheck } from 'lucide-react';
+import { Quote, Info } from 'lucide-react';
 
 export const TestimonialsSection: React.FC = () => {
   return (
@@ -37,7 +37,7 @@ export const TestimonialsSection: React.FC = () => {
                     <Quote className="w-5 h-5" />
                   </div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#06B6D4] px-2.5 py-1 rounded-full bg-[#0891B2]/20 border border-[#0891B2]/40 font-bold">
-                    VERIFIED PARTNER
+                    REPRESENTATIVE
                   </span>
                 </div>
 

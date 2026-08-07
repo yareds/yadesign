@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { STUDIO_INFO } from '../data/siteData';
 import { ContactFormData } from '../types';
-import { Mail, MapPin, Send, CheckCircle2, ArrowRight, Sparkles, Copy, RefreshCw } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle2, ArrowRight, Sparkles, Copy, RefreshCw, Loader2, AlertCircle } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -14,12 +14,45 @@ export const ContactSection: React.FC = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Note: On first real submission, FormSubmit sends a one-time confirmation email to yared.abegaz@gmail.com that must be clicked before delivery activates.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.details) return;
-    setSubmitted(true);
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/yared.abegaz@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          projectType: formData.projectType,
+          details: formData.details,
+          _subject: `YA Design Inquiry: ${formData.projectType} from ${formData.name}`,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await response.json().catch(() => null);
+        setError(data?.message || 'Failed to submit inquiry. Please try again or email directly.');
+      }
+    } catch (err) {
+      setError('Network error occurred while sending inquiry. Please check your connection and try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleCopySummary = () => {
@@ -31,6 +64,7 @@ export const ContactSection: React.FC = () => {
 
   const handleReset = () => {
     setSubmitted(false);
+    setError(null);
     setFormData({
       name: '',
       email: '',
@@ -197,13 +231,31 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
 
+                  {/* Error Alert */}
+                  {error && (
+                    <div className="p-4 rounded-xl bg-red-900/30 border border-red-500/50 text-red-200 text-xs font-mono flex items-center gap-3">
+                      <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+                      <span>{error}</span>
+                    </div>
+                  )}
+
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-[#F59E0B] hover:bg-[#FBBF24] text-[#0A0E17] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-lg cursor-pointer"
+                    disabled={submitting}
+                    className="w-full py-4 rounded-xl bg-[#F59E0B] hover:bg-[#FBBF24] disabled:opacity-60 disabled:cursor-not-allowed text-[#0A0E17] font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-lg cursor-pointer"
                   >
-                    <span>Send Project Inquiry</span>
-                    <Send className="w-4 h-4" />
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Sending Inquiry...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Project Inquiry</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </form>
               ) : (
