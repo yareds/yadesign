@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { testConnection } from './lib/firebase';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
@@ -13,6 +14,10 @@ import { SectionDivider } from './components/SectionDivider';
 
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+
+  useEffect(() => {
+    testConnection();
+  }, []);
 
   const handleSelectProject = (projectId: string) => {
     setSelectedProjectId(projectId);

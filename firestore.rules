@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidTestimonial(data) {
+      return data.keys().hasAll(['name', 'quote', 'rating']) &&
+        data.name is string && data.name.size() >= 1 && data.name.size() <= 100 &&
+        data.quote is string && data.quote.size() >= 1 && data.quote.size() <= 1000 &&
+        data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+        (!('role' in data) || (data.role is string && data.role.size() <= 100)) &&
+        (!('location' in data) || (data.location is string && data.location.size() <= 100)) &&
+        (!('projectRelation' in data) || (data.projectRelation is string && data.projectRelation.size() <= 100)) &&
+        (!('date' in data) || (data.date is string && data.date.size() <= 50)) &&
+        (!('isVisitor' in data) || data.isVisitor is bool) &&
+        (!('helpfulCount' in data) || (data.helpfulCount is number && data.helpfulCount >= 0));
+    }
+
+    match /testimonials/{testimonialId} {
+      allow get, list: if true;
+      allow create: if isValidId(testimonialId) && isValidTestimonial(incoming());
+      allow update: if isValidId(testimonialId) && isValidTestimonial(incoming()) &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['helpfulCount']);
+      allow delete: if false;
+    }
+
+    function isValidContactInquiry(data) {
+      return data.keys().hasAll(['name', 'email', 'details']) &&
+        data.name is string && data.name.size() >= 1 && data.name.size() <= 100 &&
+        data.email is string && data.email.size() >= 1 && data.email.size() <= 150 &&
+        data.details is string && data.details.size() >= 1 && data.details.size() <= 2000 &&
+        (!('projectType' in data) || (data.projectType is string && data.projectType.size() <= 100)) &&
+        (!('createdAt' in data) || (data.createdAt is string && data.createdAt.size() <= 50));
+    }
+
+    match /contact_inquiries/{inquiryId} {
+      allow get, list: if false;
+      allow create: if isValidId(inquiryId) && isValidContactInquiry(incoming());
+      allow update, delete: if false;
+    }
+  }
+}

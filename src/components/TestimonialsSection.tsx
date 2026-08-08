@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { collection, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { TESTIMONIALS } from '../data/siteData';
 import { Testimonial } from '../types';
 import { 
@@ -84,69 +86,95 @@ export const TestimonialsSection: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  // Initialize data on mount
+  // Initialize data and sync with Firestore on mount
   useEffect(() => {
-    try {
-      const savedTestimonials = localStorage.getItem(STORAGE_KEY);
-      const savedVotes = localStorage.getItem(HELPFUL_VOTES_KEY);
-
-      if (savedVotes) {
+    const savedVotes = localStorage.getItem(HELPFUL_VOTES_KEY);
+    if (savedVotes) {
+      try {
         setVotedIds(JSON.parse(savedVotes));
+      } catch (e) {
+        console.error('Error loading stored vote states:', e);
       }
-
-      if (savedTestimonials) {
-        const parsed = JSON.parse(savedTestimonials);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setTestimonials(parsed);
-          return;
-        }
-      }
-    } catch (e) {
-      console.error('Error loading stored testimonials:', e);
     }
 
-    // Default merged array
-    const initialAll = [...TESTIMONIALS, ...SEED_COMMUNITY_COMMENTS];
-    setTestimonials(initialAll);
+    const testimonialsCol = collection(db, 'testimonials');
+    const unsubscribe = onSnapshot(
+      testimonialsCol,
+      async (snapshot) => {
+        if (snapshot.empty) {
+          // Seed initial static & seed testimonials to Firestore if collection is empty
+          const initialSeed = [...TESTIMONIALS, ...SEED_COMMUNITY_COMMENTS];
+          for (const item of initialSeed) {
+            const itemRef = doc(testimonialsCol, item.id);
+            try {
+              await setDoc(itemRef, {
+                name: item.name,
+                role: item.role,
+                location: item.location,
+                projectRelation: item.projectRelation || 'Portfolio Review',
+                quote: item.quote,
+                rating: item.rating,
+                date: item.date,
+                isVisitor: !!item.isVisitor,
+                helpfulCount: item.helpfulCount || 0,
+              });
+            } catch (err) {
+              console.error('Failed to seed item:', err);
+            }
+          }
+        } else {
+          const firestoreData: Testimonial[] = snapshot.docs.map((d) => {
+            const data = d.data();
+            return {
+              id: d.id,
+              name: data.name || 'Anonymous',
+              role: data.role || 'Visitor',
+              location: data.location || 'Worldwide',
+              projectRelation: data.projectRelation || 'User Review',
+              quote: data.quote || '',
+              rating: typeof data.rating === 'number' ? data.rating : 5,
+              date: data.date || '',
+              isVisitor: !!data.isVisitor,
+              helpfulCount: typeof data.helpfulCount === 'number' ? data.helpfulCount : 0,
+            };
+          });
+          setTestimonials(firestoreData);
+        }
+      },
+      (error) => {
+        handleFirestoreError(error, OperationType.GET, 'testimonials');
+      }
+    );
+
+    return () => unsubscribe();
   }, []);
 
-  // Save testimonials to localStorage whenever they change
-  const saveTestimonials = (updated: Testimonial[]) => {
-    setTestimonials(updated);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    } catch (e) {
-      console.error('Failed to save testimonials:', e);
-    }
-  };
-
-  // Handle Helpful Vote
-  const handleToggleHelpful = (id: string) => {
+  // Handle Helpful Vote with Firestore update
+  const handleToggleHelpful = async (id: string) => {
     const isAlreadyVoted = votedIds[id];
     const newVotedState = { ...votedIds, [id]: !isAlreadyVoted };
     setVotedIds(newVotedState);
     try {
       localStorage.setItem(HELPFUL_VOTES_KEY, JSON.stringify(newVotedState));
     } catch (e) {
-      console.error('Failed to save vote:', e);
+      console.error('Failed to save vote locally:', e);
     }
 
-    const updated = testimonials.map((item) => {
-      if (item.id === id) {
-        const currentCount = item.helpfulCount || 0;
-        return {
-          ...item,
-          helpfulCount: isAlreadyVoted ? Math.max(0, currentCount - 1) : currentCount + 1,
-        };
+    const targetDoc = testimonials.find((item) => item.id === id);
+    if (targetDoc) {
+      const currentCount = targetDoc.helpfulCount || 0;
+      const newCount = isAlreadyVoted ? Math.max(0, currentCount - 1) : currentCount + 1;
+      const docRef = doc(db, 'testimonials', id);
+      try {
+        await updateDoc(docRef, { helpfulCount: newCount });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.UPDATE, `testimonials/${id}`);
       }
-      return item;
-    });
-
-    saveTestimonials(updated);
+    }
   };
 
-  // Handle Form Submission
-  const handleSubmitReview = (e: React.FormEvent) => {
+  // Handle Form Submission with Firestore save
+  const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
 
@@ -162,10 +190,10 @@ export const TestimonialsSection: React.FC = () => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
       const today = new Date().toISOString().split('T')[0];
-      const newEntry: Testimonial = {
-        id: `visitor-${Date.now()}`,
+      const newId = `review-${Date.now()}`;
+      const newReview = {
         name: formName.trim(),
         role: formRole.trim() || 'Community Member',
         location: formLocation.trim() || 'Worldwide',
@@ -177,8 +205,8 @@ export const TestimonialsSection: React.FC = () => {
         helpfulCount: 1,
       };
 
-      const updated = [newEntry, ...testimonials];
-      saveTestimonials(updated);
+      const docRef = doc(db, 'testimonials', newId);
+      await setDoc(docRef, newReview);
 
       setIsSubmitting(false);
       setSubmitSuccess(true);
@@ -190,12 +218,15 @@ export const TestimonialsSection: React.FC = () => {
       setFormQuote('');
       setFormRating(5);
 
-      // Hide success message after 4s
       setTimeout(() => {
         setSubmitSuccess(false);
         setIsFormOpen(false);
       }, 3500);
-    }, 400);
+    } catch (err) {
+      setIsSubmitting(false);
+      setFormError('Failed to submit review. Please try again.');
+      handleFirestoreError(err, OperationType.WRITE, 'testimonials');
+    }
   };
 
   // Filter Logic

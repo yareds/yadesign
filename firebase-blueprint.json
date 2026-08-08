@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A user or client testimonial / review",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Name of the reviewer"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Role or title of the reviewer"
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Location or organization"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000,
+          "description": "Feedback content"
+        },
+        "projectRelation": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Project relation or topic"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Star rating from 1 to 5"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of review in YYYY-MM-DD format"
+        },
+        "isVisitor": {
+          "type": "boolean",
+          "description": "Whether the review is from a community visitor vs client"
+        },
+        "helpfulCount": {
+          "type": "number",
+          "description": "Number of helpful votes"
+        }
+      },
+      "required": ["name", "quote", "rating"]
+    },
+    "ContactInquiry": {
+      "title": "Contact Inquiry",
+      "description": "Project inquiry submitted by a visitor",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Sender name"
+        },
+        "email": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150,
+          "description": "Sender email"
+        },
+        "projectType": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Selected project category"
+        },
+        "details": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Project details or requirements"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["name", "email", "details"]
+    }
+  },
+  "firestore": {
+    "/testimonials/{testimonialId}": {
+      "schema": {
+        "$ref": "#/entities/Testimonial"
+      },
+      "description": "Collection of user reviews and testimonials"
+    },
+    "/contact_inquiries/{inquiryId}": {
+      "schema": {
+        "$ref": "#/entities/ContactInquiry"
+      },
+      "description": "Collection of project inquiry form submissions"
+    }
+  }
+}
