@@ -6,7 +6,12 @@ export const STUDIO_INFO = {
   location: 'Remote & Worldwide',
   workingRadius: 'Working with clients remotely worldwide',
   email: 'yared.abegaz@gmail.com',
-  description: 'YA Design designs and builds custom web applications, business management systems, e-commerce platforms, and digital experiences — end to end, one team from discovery through support.'
+  description: 'YA Design designs and builds custom web applications, business management systems, e-commerce platforms, and digital experiences — end to end, one team from discovery through support.',
+  socials: {
+    instagram: 'https://instagram.com',
+    youtube: 'https://youtube.com',
+    linkedin: 'https://linkedin.com'
+  }
 };
 
 export const PRINCIPLES = [
