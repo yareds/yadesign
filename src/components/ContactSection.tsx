@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { STUDIO_INFO } from '../data/siteData';
 import { ContactFormData } from '../types';
 import { Mail, MapPin, Send, CheckCircle2, ArrowRight, Sparkles, Copy, RefreshCw, Loader2, AlertCircle } from 'lucide-react';
-import { collection, doc, setDoc } from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -29,21 +27,6 @@ export const ContactSection: React.FC = () => {
     setError(null);
 
     try {
-      // Save to Firestore contact_inquiries
-      const inquiryId = `inquiry-${Date.now()}`;
-      const inquiryRef = doc(collection(db, 'contact_inquiries'), inquiryId);
-      try {
-        await setDoc(inquiryRef, {
-          name: formData.name,
-          email: formData.email,
-          projectType: formData.projectType,
-          details: formData.details,
-          createdAt: new Date().toISOString(),
-        });
-      } catch (firestoreErr) {
-        handleFirestoreError(firestoreErr, OperationType.WRITE, `contact_inquiries/${inquiryId}`);
-      }
-
       const response = await fetch('https://formsubmit.co/ajax/yared.abegaz@gmail.com', {
         method: 'POST',
         headers: {
