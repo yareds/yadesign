@@ -53,5 +53,20 @@ service cloud.firestore {
       allow create: if isValidId(inquiryId) && isValidContactInquiry(incoming());
       allow update, delete: if false;
     }
+
+    function isValidTestimonialSubmission(data) {
+      return data.keys().hasAll(['quote', 'status']) &&
+        data.quote is string && data.quote.size() >= 1 && data.quote.size() <= 500 &&
+        data.status == 'pending' &&
+        (!('name' in data) || (data.name is string && data.name.size() <= 100)) &&
+        (!('role' in data) || (data.role is string && data.role.size() <= 100)) &&
+        (!('submittedAt' in data) || (data.submittedAt is string && data.submittedAt.size() <= 100));
+    }
+
+    match /testimonial_submissions/{submissionId} {
+      allow read: if resource.data.status == 'approved';
+      allow create: if isValidId(submissionId) && isValidTestimonialSubmission(incoming());
+      allow update, delete: if false;
+    }
   }
 }

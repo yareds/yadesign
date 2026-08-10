@@ -87,6 +87,39 @@
         }
       },
       "required": ["name", "email", "details"]
+    },
+    "TestimonialSubmission": {
+      "title": "Testimonial Submission",
+      "description": "Moderated visitor testimonial submission",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Visitor name"
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Visitor role or company"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "description": "Testimonial text"
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "ISO timestamp of submission"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"],
+          "description": "Moderation status"
+        }
+      },
+      "required": ["quote", "status"]
     }
   },
   "firestore": {
@@ -101,6 +134,12 @@
         "$ref": "#/entities/ContactInquiry"
       },
       "description": "Collection of project inquiry form submissions"
+    },
+    "/testimonial_submissions/{submissionId}": {
+      "schema": {
+        "$ref": "#/entities/TestimonialSubmission"
+      },
+      "description": "Collection of visitor testimonial submissions for moderation"
     }
   }
 }
