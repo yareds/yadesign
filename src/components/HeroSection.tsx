@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowDown, ArrowUpRight, CheckCircle2, ShieldCheck, Cpu, Code2, Sparkles } from 'lucide-react';
 import { ShippedTicker } from './ShippedTicker';
+import { TypewriterText } from './TypewriterText';
 
 interface HeroSectionProps {
   onSelectProject?: (projectId: string) => void;
@@ -38,11 +39,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSelectProject }) => 
             <span>SOFTWARE STUDIO</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-[#F8FAFC] tracking-tight leading-[1.05] mb-8">
-            Software that runs real businesses, <br className="hidden sm:inline" />
-            <span className="italic font-normal text-[#FBBF24] underline decoration-[#F59E0B]/30 underline-offset-8">not just demos.</span>
-          </h1>
+          {/* Headline with Typewriter Animation */}
+          <TypewriterText
+            text1="Software that runs real businesses,"
+            text2="not just demos."
+          />
 
           {/* Supporting paragraph */}
           <p className="font-sans text-lg sm:text-xl text-[#94A3B8] max-w-2xl leading-relaxed mb-10 font-normal">

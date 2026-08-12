@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { STUDIO_INFO } from '../data/siteData';
 import { ContactFormData } from '../types';
-import { Mail, MapPin, Send, CheckCircle2, ArrowRight, Sparkles, Copy, RefreshCw, Loader2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, ArrowRight, Sparkles, Copy, RefreshCw, Loader2, AlertCircle } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -119,6 +119,23 @@ export const ContactSection: React.FC = () => {
                     {STUDIO_INFO.email}
                   </a>
                   <div className="text-xs text-[#94A3B8] mt-0.5">Response time: within 24 hours</div>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-4 pt-4 border-t border-[#2A364F]">
+                <div className="w-10 h-10 rounded-xl bg-[#1B2438] border border-[#2A364F] flex items-center justify-center text-[#06B6D4] shrink-0 mt-0.5">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-[#94A3B8] uppercase tracking-wider font-bold">STUDIO PHONE</div>
+                  <a
+                    href={`tel:${STUDIO_INFO.phone.replace(/[^0-9]/g, '')}`}
+                    className="font-mono text-sm font-bold text-[#F8FAFC] hover:text-[#FBBF24] transition-colors"
+                  >
+                    {STUDIO_INFO.phone}
+                  </a>
+                  <div className="text-xs text-[#94A3B8] mt-0.5">Direct phone & WhatsApp contact</div>
                 </div>
               </div>
 

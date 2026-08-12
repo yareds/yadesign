@@ -1,7 +1,19 @@
 import React from 'react';
 import { STUDIO_INFO } from '../data/siteData';
 import { Logo } from './Logo';
-import { Mail, MapPin, ArrowUp, Instagram, Youtube, Linkedin, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUp, Instagram, Linkedin, ExternalLink } from 'lucide-react';
+
+const TikTokIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.34-6.34V9.05a8.16 8.16 0 0 0 4.91 1.62V7.22a4.85 4.85 0 0 1-1-.53z"/>
+  </svg>
+);
+
+const TelegramIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+  </svg>
+);
 
 export const FooterSection: React.FC = () => {
   const scrollToTop = () => {
@@ -80,24 +92,28 @@ export const FooterSection: React.FC = () => {
                   <span>{STUDIO_INFO.email}</span>
                 </a>
               </li>
+              <li>
+                <a
+                  href={`tel:${STUDIO_INFO.phone.replace(/[^0-9]/g, '')}`}
+                  className="flex items-center gap-2 text-[#F8FAFC] hover:text-[#FBBF24] transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-[#06B6D4]" />
+                  <span>{STUDIO_INFO.phone}</span>
+                </a>
+              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Official Profiles & Social Links Row */}
-        <div className="py-6 border-b border-[#2A364F] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#FBBF24] font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FBBF24] animate-pulse" />
-            <span>OFFICIAL PROFILES & SOCIALS</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+        {/* Social Links Row */}
+        <div className="py-6 border-b border-[#2A364F] flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-3 w-full justify-start sm:justify-end">
             <a
               href={STUDIO_INFO.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#0A66C2] transition-all duration-200 group"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#0A66C2] transition-all duration-200 group"
               aria-label="Visit LinkedIn profile"
             >
               <Linkedin className="w-4 h-4 text-[#0A66C2] shrink-0" />
@@ -106,22 +122,34 @@ export const FooterSection: React.FC = () => {
             </a>
 
             <a
-              href={STUDIO_INFO.socials.youtube}
+              href={STUDIO_INFO.socials.tiktok}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#FF0000] hover:bg-[#FF0000]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#FF0000] transition-all duration-200 group"
-              aria-label="Visit YouTube channel"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#00F2FE] hover:bg-[#00F2FE]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#00F2FE] transition-all duration-200 group"
+              aria-label="Visit TikTok profile"
             >
-              <Youtube className="w-4 h-4 text-[#FF0000] shrink-0" />
-              <span>YouTube</span>
-              <ExternalLink className="w-3 h-3 text-[#64748B] group-hover:text-[#FF0000] shrink-0" />
+              <TikTokIcon className="w-4 h-4 text-[#00F2FE] shrink-0" />
+              <span>TikTok</span>
+              <ExternalLink className="w-3 h-3 text-[#64748B] group-hover:text-[#00F2FE] shrink-0" />
+            </a>
+
+            <a
+              href={STUDIO_INFO.socials.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#229ED9] hover:bg-[#229ED9]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#229ED9] transition-all duration-200 group"
+              aria-label="Visit Telegram channel"
+            >
+              <TelegramIcon className="w-4 h-4 text-[#229ED9] shrink-0" />
+              <span>Telegram</span>
+              <ExternalLink className="w-3 h-3 text-[#64748B] group-hover:text-[#229ED9] shrink-0" />
             </a>
 
             <a
               href={STUDIO_INFO.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#E4405F] hover:bg-[#E4405F]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#E4405F] transition-all duration-200 group"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#121826] border border-[#2A364F] hover:border-[#E4405F] hover:bg-[#E4405F]/10 text-xs font-mono text-[#F8FAFC] hover:text-[#E4405F] transition-all duration-200 group"
               aria-label="Visit Instagram profile"
             >
               <Instagram className="w-4 h-4 text-[#E4405F] shrink-0" />

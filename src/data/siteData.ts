@@ -6,11 +6,13 @@ export const STUDIO_INFO = {
   location: 'Remote & Worldwide',
   workingRadius: 'Working with clients remotely worldwide',
   email: 'yared.abegaz@gmail.com',
+  phone: '571-474-9554',
   description: 'YA Design designs and builds custom web applications, business management systems, e-commerce platforms, and digital experiences — end to end, one team from discovery through support.',
   socials: {
-    instagram: 'https://instagram.com',
-    youtube: 'https://youtube.com',
-    linkedin: 'https://linkedin.com'
+    tiktok: 'https://www.tiktok.com',
+    telegram: 'https://t.me',
+    linkedin: 'https://linkedin.com',
+    instagram: 'https://instagram.com'
   }
 };
 

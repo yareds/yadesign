@@ -142,8 +142,8 @@ export const AbstractUiPreview: React.FC<AbstractUiPreviewProps> = ({
                   <div className="text-[9px] text-[#94A3B8] font-mono">Floral · Citrus · Medium Light Roast</div>
                 </div>
               </div>
-              <div className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#6366F1]/20 text-[#818CF8] border border-[#6366F1]/40">
-                98% MATCH
+              <div className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#F59E0B]/20 text-[#FBBF24] border border-[#F59E0B]/40">
+                IN DEV
               </div>
             </div>
 
@@ -201,13 +201,13 @@ export const AbstractUiPreview: React.FC<AbstractUiPreviewProps> = ({
             <div className="p-2 rounded border border-[#2A364F] bg-[#121826] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#06B6D4] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#06B6D4]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F59E0B]"></span>
                 </span>
-                <span className="text-[10px] font-mono text-[#F8FAFC]">LIVE BIDDING · iPhone 15 Pro Max 256GB</span>
+                <span className="text-[10px] font-mono text-[#F8FAFC]">YONIPHONE AUCTION · In Development</span>
               </div>
-              <span className="text-[10px] font-mono text-[#06B6D4] bg-[#0891B2]/20 px-1.5 py-0.5 rounded border border-[#0891B2]/40">
-                02m 45s
+              <span className="text-[10px] font-mono text-[#FBBF24] bg-[#F59E0B]/20 px-1.5 py-0.5 rounded border border-[#F59E0B]/40">
+                IN DEV
               </span>
             </div>
 
@@ -234,7 +234,7 @@ export const AbstractUiPreview: React.FC<AbstractUiPreviewProps> = ({
               <div className="col-span-5 p-2 rounded border border-[#2A364F] bg-[#121826] flex flex-col justify-between">
                 <div className="text-[8px] font-mono text-[#94A3B8]">SELLER VERIFICATION</div>
                 <div className="p-1.5 rounded bg-[#0A0E17] border border-[#2A364F] text-center my-auto">
-                  <div className="text-[10px] font-semibold text-[#F8FAFC]">Mebrat Electronics</div>
+                  <div className="text-[10px] font-semibold text-[#F8FAFC]">YONI Phone Store</div>
                   <div className="text-[8px] text-[#06B6D4] font-mono mt-0.5">✓ Verified Merchant</div>
                   <div className="text-[8px] text-[#94A3B8] mt-0.5">48 Successful Auctions</div>
                 </div>

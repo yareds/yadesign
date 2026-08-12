@@ -11,6 +11,7 @@ export interface Project {
   category: 'Business Software' | 'E-commerce' | 'Marketplace' | 'Custom Digital Experience';
   year: string;
   status: ProjectStatus;
+  liveUrl?: string;
   repo?: string;
   tagline: string;
   description: string;
