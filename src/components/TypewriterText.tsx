@@ -11,9 +11,9 @@ interface TypewriterTextProps {
 export const TypewriterText: React.FC<TypewriterTextProps> = ({
   text1,
   text2,
-  typingSpeed = 35,
-  deletingSpeed = 20,
-  pauseDuration = 3500,
+  typingSpeed = 80,
+  deletingSpeed = 45,
+  pauseDuration = 4500,
 }) => {
   const [displayedText1, setDisplayedText1] = useState('');
   const [displayedText2, setDisplayedText2] = useState('');
