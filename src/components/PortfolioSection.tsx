@@ -31,7 +31,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ selectedProj
             </div>
 
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#0F172A] tracking-tight leading-tight">
-              Six products, <span className="italic font-normal text-[#F59E0B]">six real problems solved.</span>
+              Seven products, <span className="italic font-normal text-[#F59E0B]">seven real problems solved.</span>
             </h2>
 
             <p className="font-sans text-base text-[#64748B] mt-3">

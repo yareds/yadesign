@@ -12,7 +12,7 @@ export const STUDIO_INFO = {
     tiktok: 'https://www.tiktok.com',
     telegram: 'https://t.me',
     linkedin: 'https://linkedin.com',
-    instagram: 'https://instagram.com'
+    instagram: 'https://www.instagram.com/ya4designs/'
   }
 };
 

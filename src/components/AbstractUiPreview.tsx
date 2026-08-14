@@ -66,6 +66,64 @@ export const AbstractUiPreview: React.FC<AbstractUiPreviewProps> = ({
         />
 
         {/* Dynamic Project Specific Abstract UI Layout */}
+        {projectId === 'hr-management-system' && (
+          <div className="flex flex-col h-full justify-between gap-2 z-10">
+            {/* Header Metrics */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="p-2 rounded border border-[#2A364F] bg-[#121826]">
+                <div className="text-[9px] font-mono text-[#94A3B8] uppercase tracking-wider">ACTIVE HEADCOUNT</div>
+                <div className="text-sm font-semibold text-[#F8FAFC] mt-0.5">142 Employees</div>
+                <div className="text-[9px] text-[#FBBF24] font-mono">100% Onboarded</div>
+              </div>
+              <div className="p-2 rounded border border-[#2A364F] bg-[#121826]">
+                <div className="text-[9px] font-mono text-[#94A3B8] uppercase tracking-wider">MONTHLY PAYROLL</div>
+                <div className="text-sm font-semibold text-[#F8FAFC] mt-0.5">ETB 1.85M</div>
+                <div className="text-[9px] text-[#06B6D4] font-mono">Tax & Direct Deposit ✓</div>
+              </div>
+              <div className="p-2 rounded border border-[#2A364F] bg-[#121826]">
+                <div className="text-[9px] font-mono text-[#94A3B8] uppercase tracking-wider">PENDING LEAVE</div>
+                <div className="text-sm font-semibold text-[#F8FAFC] mt-0.5">3 Requests</div>
+                <div className="text-[9px] text-[#94A3B8] font-mono">2 Managers Approved</div>
+              </div>
+            </div>
+
+            {/* Employee Directory & Payroll Status Row */}
+            <div className="grid grid-cols-12 gap-2 flex-1 items-stretch">
+              <div className="col-span-7 p-2 rounded border border-[#2A364F] bg-[#121826] flex flex-col justify-between">
+                <div className="flex justify-between items-center text-[9px] font-mono text-[#94A3B8]">
+                  <span>EMPLOYEE DIRECTORY & RBAC</span>
+                  <span className="text-[#FBBF24]">ADMIN / HR</span>
+                </div>
+                <div className="space-y-1 my-1">
+                  <div className="p-1 rounded bg-[#0A0E17] border border-[#2A364F] flex items-center justify-between text-[8px] font-mono">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
+                      <span className="text-[#F8FAFC]">Selamawit T. · Lead Dev</span>
+                    </div>
+                    <span className="text-[#FBBF24] bg-[#F59E0B]/20 px-1 rounded">ENGINEERING</span>
+                  </div>
+                  <div className="p-1 rounded bg-[#0A0E17] border border-[#2A364F] flex items-center justify-between text-[8px] font-mono">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#06B6D4]" />
+                      <span className="text-[#F8FAFC]">Dawit A. · HR Ops</span>
+                    </div>
+                    <span className="text-[#06B6D4] bg-[#0891B2]/20 px-1 rounded">PEOPLE OPS</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-5 p-2 rounded border border-[#2A364F] bg-[#121826] flex flex-col justify-between">
+                <div className="text-[8px] font-mono text-[#94A3B8]">AUTOMATED PAYROLL</div>
+                <div className="p-1.5 rounded bg-[#0A0E17] border border-[#2A364F] text-center my-auto font-mono">
+                  <div className="text-[10px] font-bold text-[#F8FAFC]">Batch Run #08-2025</div>
+                  <div className="text-[8px] text-[#06B6D4] mt-0.5">✓ Tax Slabs Processed</div>
+                  <div className="text-[8px] text-[#94A3B8] mt-0.5">Slips Generated</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {projectId === 'getch-property-manager' && (
           <div className="flex flex-col h-full justify-between gap-2 z-10">
             {/* Header KPI row */}
@@ -204,7 +262,7 @@ export const AbstractUiPreview: React.FC<AbstractUiPreviewProps> = ({
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F59E0B]"></span>
                 </span>
-                <span className="text-[10px] font-mono text-[#F8FAFC]">YONIPHONE AUCTION · In Development</span>
+                <span className="text-[10px] font-mono text-[#F8FAFC]">YONIMOBILE AUCTION · In Development</span>
               </div>
               <span className="text-[10px] font-mono text-[#FBBF24] bg-[#F59E0B]/20 px-1.5 py-0.5 rounded border border-[#F59E0B]/40">
                 IN DEV
